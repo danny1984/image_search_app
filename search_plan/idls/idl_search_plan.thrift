@@ -3,8 +3,10 @@
 * input: company_id, craft, style, image_url
 * output: offer_list
 *
-* dehong.gdh
+* dehong.gdh 20180715
 */
+
+namespace py search_plan
 
 // ========   Request  ==========
 enum RequestType{
