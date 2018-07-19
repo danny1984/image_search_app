@@ -11,8 +11,8 @@ import socket
 import sys
 
 #Thrift modules
-from idls.sp_idl.search_plan.idl_search_plan import SearchPlanService
-from idls.sp_idl.search_plan.idl_search_plan.ttypes import *
+from idls.sp_idl.search_plan import SearchPlanService
+from idls.sp_idl.search_plan.ttypes import *
 
 from thrift.transport import TSocket
 from thrift.transport import TTransport

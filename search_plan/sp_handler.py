@@ -3,7 +3,7 @@
 import sys
 # my custom utility
 from util.util import *
-from idls.sp_idl.idl_search_plan.ttypes import *
+from idls.sp_idl.search_plan.ttypes import *
 
 class SearchPlanServiceHandler:
 
