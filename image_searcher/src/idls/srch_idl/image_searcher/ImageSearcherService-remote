@@ -16,7 +16,7 @@ else:
 from thrift.transport import TTransport, TSocket, TSSLSocket, THttpClient
 from thrift.protocol.TBinaryProtocol import TBinaryProtocol
 
-from image_searcher import SearchPlanService
+from image_searcher import ImageSearcherService
 from image_searcher.ttypes import *
 
 if len(sys.argv) <= 1 or sys.argv[1] == '--help':
@@ -101,7 +101,7 @@ else:
     else:
         transport = TTransport.TBufferedTransport(socket)
 protocol = TBinaryProtocol(transport)
-client = SearchPlanService.Client(protocol)
+client = ImageSearcherService.Client(protocol)
 transport.open()
 
 if cmd == 'doSearch':

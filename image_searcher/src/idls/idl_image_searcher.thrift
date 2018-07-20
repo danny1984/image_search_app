@@ -53,7 +53,7 @@ exception RequestException{
 }
 
 // =======   Service  ===========
-service SearchPlanService{
+service ImageSearcherService{
 	// service function
 	SearchResult doSearch(1: Request request) throws(1:RequestException qe);
 }

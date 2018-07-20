@@ -40,3 +40,15 @@ struct SearchResult{
 	2: required ReturnInfo	  ret_info;
 	3: required ReturnVector  ret_vec;
 }
+
+// ======   Exception ==========
+exception RequestException{
+	1: required i32 code;
+	2: optional string excp;
+}
+
+// =======   Service  ===========
+service QueryProcessService{
+	// service function
+	SearchResult doQueryProcess(1: Request request) throws(1:RequestException qe);
+}
