@@ -12,11 +12,11 @@
 
 # DONE
 * docker准备
-  ** SP 只需要thrift环境, 不需要docker
-  ** QP 需要准备tensorflow的docker环境
+** SP 只需要thrift环境, 不需要docker
+** QP 需要准备tensorflow的docker环境
      但centos可以直接安装virtualenv, 然后安装tensorflow以及thrift安装包;
-  ** search 需要准备faiss的docker环境, 目前已经准备好了
+** search 需要准备faiss的docker环境, 目前已经准备好了
 * SP 到 QP 访问
-  ** SP 主要功能
-  ** QP 主要功能
-  **
+** SP 主要功能
+** QP 主要功能
+**
