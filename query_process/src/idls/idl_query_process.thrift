@@ -8,41 +8,41 @@
 namespace py query_process
 
 // ========   Request  ==========
-enum RequestType{
+enum QPRequestType{
 	IMAGE_2_VECTOR,
 	IMAGE_2_VECTOR_DEBUG
 }
 
-struct Request{
-	1: required RequestType type;
+struct QPRequest{
+	1: required QPRequestType type;
 	2: required list<string> img_urls;
 	3: optional map<string, string> params;
 }
 
 // ========= Result ================
-enum ReturnStatus{
+enum QPReturnStatus{
 	SEARCH_OK,
 	ERROR_1
 }
 
-struct ReturnInfo{
+struct QPReturnInfo{
 	1: required i32	         img_cnt;
 	2: required i32          img_dim;
 	3: optional list<string> debug_info;
 }
 
-struct ReturnVector{
+struct QPReturnVector{
 	1: required list< list<double> > list_image_vectors;
 }
 
-struct SearchResult{
-	1: required ReturnStatus  ret_status;
-	2: required ReturnInfo	  ret_info;
-	3: required ReturnVector  ret_vec;
+struct QPSearchResult{
+	1: required QPReturnStatus  ret_status;
+	2: required QPReturnInfo	  ret_info;
+	3: required QPReturnVector  ret_vec;
 }
 
 // ======   Exception ==========
-exception RequestException{
+exception QPRequestException{
 	1: required i32 code;
 	2: optional string excp;
 }
@@ -50,5 +50,5 @@ exception RequestException{
 // =======   Service  ===========
 service QueryProcessService{
 	// service function
-	SearchResult doQueryProcess(1: Request request) throws(1:RequestException qe);
+	QPSearchResult doQueryProcess(1: QPRequest request) throws(1:QPRequestException qe);
 }

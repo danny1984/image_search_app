@@ -1,9 +1,10 @@
 sp_conf: sp_params
 
-project_home_path: ./
-
-net:
-  - qp_ip:
-    qp_port:
-  - search_ip:
-    search_port:
+# service
+services:
+  qp:
+    ip: localhost
+    port: 2088
+  sp:
+    ip: localhost
+    port: 3207

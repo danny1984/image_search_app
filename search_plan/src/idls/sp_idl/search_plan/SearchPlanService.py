@@ -99,7 +99,7 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
-        except RequestException as qe:
+        except SPRequestException as qe:
             msg_type = TMessageType.REPLY
             result.qe = qe
         except TApplicationException as ex:
@@ -139,7 +139,7 @@ class doImageSearch_args(object):
                 break
             if fid == 1:
                 if ftype == TType.STRUCT:
-                    self.request = Request()
+                    self.request = SPRequest()
                     self.request.read(iprot)
                 else:
                     iprot.skip(ftype)
@@ -176,7 +176,7 @@ class doImageSearch_args(object):
 all_structs.append(doImageSearch_args)
 doImageSearch_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRUCT, 'request', [Request, None], None, ),  # 1
+    (1, TType.STRUCT, 'request', [SPRequest, None], None, ),  # 1
 )
 
 
@@ -203,13 +203,13 @@ class doImageSearch_result(object):
                 break
             if fid == 0:
                 if ftype == TType.STRUCT:
-                    self.success = SearchResult()
+                    self.success = SPSearchResult()
                     self.success.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.qe = RequestException()
+                    self.qe = SPRequestException()
                     self.qe.read(iprot)
                 else:
                     iprot.skip(ftype)
@@ -249,8 +249,8 @@ class doImageSearch_result(object):
         return not (self == other)
 all_structs.append(doImageSearch_result)
 doImageSearch_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SearchResult, None], None, ),  # 0
-    (1, TType.STRUCT, 'qe', [RequestException, None], None, ),  # 1
+    (0, TType.STRUCT, 'success', [SPSearchResult, None], None, ),  # 0
+    (1, TType.STRUCT, 'qe', [SPRequestException, None], None, ),  # 1
 )
 fix_spec(all_structs)
 del all_structs

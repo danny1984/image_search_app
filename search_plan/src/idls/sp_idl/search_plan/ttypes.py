@@ -16,7 +16,7 @@ from thrift.transport import TTransport
 all_structs = []
 
 
-class RequestType(object):
+class SPRequestType(object):
     IMAGE_SEARCH = 0
     SEARCH_DEBUG = 1
 
@@ -31,7 +31,7 @@ class RequestType(object):
     }
 
 
-class ReturnStatus(object):
+class SPReturnStatus(object):
     SEARCH_OK = 0
     ERROR_1 = 1
 
@@ -46,7 +46,7 @@ class ReturnStatus(object):
     }
 
 
-class Request(object):
+class SPRequest(object):
     """
     Attributes:
      - type
@@ -130,7 +130,7 @@ class Request(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('Request')
+        oprot.writeStructBegin('SPRequest')
         if self.type is not None:
             oprot.writeFieldBegin('type', TType.I32, 1)
             oprot.writeI32(self.type)
@@ -193,7 +193,7 @@ class Request(object):
         return not (self == other)
 
 
-class ReturnInfo(object):
+class SPReturnInfo(object):
     """
     Attributes:
      - srch_img_cnt
@@ -245,7 +245,7 @@ class ReturnInfo(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('ReturnInfo')
+        oprot.writeStructBegin('SPReturnInfo')
         if self.srch_img_cnt is not None:
             oprot.writeFieldBegin('srch_img_cnt', TType.I32, 1)
             oprot.writeI32(self.srch_img_cnt)
@@ -283,7 +283,7 @@ class ReturnInfo(object):
         return not (self == other)
 
 
-class ReturnProduct(object):
+class SPReturnProduct(object):
     """
     Attributes:
      - list_prods
@@ -321,7 +321,7 @@ class ReturnProduct(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('ReturnProduct')
+        oprot.writeStructBegin('SPReturnProduct')
         if self.list_prods is not None:
             oprot.writeFieldBegin('list_prods', TType.LIST, 1)
             oprot.writeListBegin(TType.I32, len(self.list_prods))
@@ -349,7 +349,7 @@ class ReturnProduct(object):
         return not (self == other)
 
 
-class SearchResult(object):
+class SPSearchResult(object):
     """
     Attributes:
      - ret_status
@@ -379,13 +379,13 @@ class SearchResult(object):
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRUCT:
-                    self.ret_info = ReturnInfo()
+                    self.ret_info = SPReturnInfo()
                     self.ret_info.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 3:
                 if ftype == TType.STRUCT:
-                    self.ret_prod = ReturnProduct()
+                    self.ret_prod = SPReturnProduct()
                     self.ret_prod.read(iprot)
                 else:
                     iprot.skip(ftype)
@@ -398,7 +398,7 @@ class SearchResult(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('SearchResult')
+        oprot.writeStructBegin('SPSearchResult')
         if self.ret_status is not None:
             oprot.writeFieldBegin('ret_status', TType.I32, 1)
             oprot.writeI32(self.ret_status)
@@ -435,7 +435,7 @@ class SearchResult(object):
         return not (self == other)
 
 
-class RequestException(TException):
+class SPRequestException(TException):
     """
     Attributes:
      - code
@@ -475,7 +475,7 @@ class RequestException(TException):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('RequestException')
+        oprot.writeStructBegin('SPRequestException')
         if self.code is not None:
             oprot.writeFieldBegin('code', TType.I32, 1)
             oprot.writeI32(self.code)
@@ -505,8 +505,8 @@ class RequestException(TException):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(Request)
-Request.thrift_spec = (
+all_structs.append(SPRequest)
+SPRequest.thrift_spec = (
     None,  # 0
     (1, TType.I32, 'type', None, None, ),  # 1
     (2, TType.I32, 'comp_id', None, None, ),  # 2
@@ -515,27 +515,27 @@ Request.thrift_spec = (
     (5, TType.LIST, 'img_urls', (TType.STRING, 'UTF8', False), None, ),  # 5
     (6, TType.MAP, 'srch_params', (TType.STRING, 'UTF8', TType.STRING, 'UTF8', False), None, ),  # 6
 )
-all_structs.append(ReturnInfo)
-ReturnInfo.thrift_spec = (
+all_structs.append(SPReturnInfo)
+SPReturnInfo.thrift_spec = (
     None,  # 0
     (1, TType.I32, 'srch_img_cnt', None, None, ),  # 1
     (2, TType.I32, 'srch_sample_cnt', None, None, ),  # 2
     (3, TType.LIST, 'debug_info', (TType.STRING, 'UTF8', False), None, ),  # 3
 )
-all_structs.append(ReturnProduct)
-ReturnProduct.thrift_spec = (
+all_structs.append(SPReturnProduct)
+SPReturnProduct.thrift_spec = (
     None,  # 0
     (1, TType.LIST, 'list_prods', (TType.I32, None, False), None, ),  # 1
 )
-all_structs.append(SearchResult)
-SearchResult.thrift_spec = (
+all_structs.append(SPSearchResult)
+SPSearchResult.thrift_spec = (
     None,  # 0
     (1, TType.I32, 'ret_status', None, None, ),  # 1
-    (2, TType.STRUCT, 'ret_info', [ReturnInfo, None], None, ),  # 2
-    (3, TType.STRUCT, 'ret_prod', [ReturnProduct, None], None, ),  # 3
+    (2, TType.STRUCT, 'ret_info', [SPReturnInfo, None], None, ),  # 2
+    (3, TType.STRUCT, 'ret_prod', [SPReturnProduct, None], None, ),  # 3
 )
-all_structs.append(RequestException)
-RequestException.thrift_spec = (
+all_structs.append(SPRequestException)
+SPRequestException.thrift_spec = (
     None,  # 0
     (1, TType.I32, 'code', None, None, ),  # 1
     (2, TType.STRING, 'excp', 'UTF8', None, ),  # 2

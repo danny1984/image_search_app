@@ -1,0 +1,19 @@
+qp_conf: qp_params
+
+project_home_path: ./
+
+#inception v3
+inception_v3:
+  model_dir: '/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/./vecsearch/imgvec/resources/inception_v3/'
+  model_file: 'tensorflow_inception_graph.pb'
+  image_data_name: 'DecodeJpeg/contents:0'
+  bottleneck_data_name: 'pool_3/_reshape:0'
+
+# service
+services:
+  qp:
+    ip: localhost
+    port: 2088
+  sp:
+    ip: localhost
+    port: 3207

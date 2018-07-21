@@ -6,13 +6,12 @@ desc  :
 author: danny
 date  : 2018-07-15 
 """
-
 import socket
 import sys
 
 #Thrift modules
-from idls.sp_idl.search_plan import SearchPlanService
-from idls.sp_idl.search_plan.ttypes import *
+from idls.qp_idl.query_process import QueryProcessService
+from idls.qp_idl.query_process.ttypes import *
 
 from thrift.transport import TSocket
 from thrift.transport import TTransport
@@ -21,21 +20,20 @@ from thrift.server    import TServer
 
 # my custom utility
 from util.util import *
-from sp_handler import SearchPlanServiceHandler
+from qp_handler import QueryProcessServiceHandler
 
-handler   = SearchPlanServiceHandler()
-processor = SearchPlanService.Processor(handler)
-sp_ip     = sp_conf["services"]["sp"]["ip"]
-sp_port   = sp_conf["services"]["sp"]["port"]
-transport = TSocket.TServerSocket(sp_ip, sp_port)
+handler   = QueryProcessServiceHandler(qp_conf, qplogger)
+processor = QueryProcessService.Processor(handler)
+qp_ip     = qp_conf["services"]["qp"]["ip"]
+qp_port   = qp_conf["services"]["qp"]["port"]
+transport = TSocket.TServerSocket(qp_ip, qp_port)
 tfactory  = TTransport.TBufferedTransportFactory()
 pfactory  = TBinaryProtocol.TBinaryProtocolFactory()
 
 server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)
 
-splogger.info("Starting Search Plan in ip \"{}\" and port {}".format(sp_ip, sp_port))
+qplogger.info("Starting Query Process in ip \"{}\" and port {}".format(qp_ip, qp_port))
 
 server.serve()
 
-splogger.info("Done")
-
+qplogger.info("Done")
