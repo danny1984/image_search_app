@@ -99,7 +99,7 @@ class Processor(Iface, TProcessor):
             msg_type = TMessageType.REPLY
         except TTransport.TTransportException:
             raise
-        except RequestException as qe:
+        except ISRequestException as qe:
             msg_type = TMessageType.REPLY
             result.qe = qe
         except TApplicationException as ex:
@@ -139,7 +139,7 @@ class doSearch_args(object):
                 break
             if fid == 1:
                 if ftype == TType.STRUCT:
-                    self.request = Request()
+                    self.request = ISRequest()
                     self.request.read(iprot)
                 else:
                     iprot.skip(ftype)
@@ -176,7 +176,7 @@ class doSearch_args(object):
 all_structs.append(doSearch_args)
 doSearch_args.thrift_spec = (
     None,  # 0
-    (1, TType.STRUCT, 'request', [Request, None], None, ),  # 1
+    (1, TType.STRUCT, 'request', [ISRequest, None], None, ),  # 1
 )
 
 
@@ -203,13 +203,13 @@ class doSearch_result(object):
                 break
             if fid == 0:
                 if ftype == TType.STRUCT:
-                    self.success = SearchResult()
+                    self.success = ISSearchResult()
                     self.success.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 1:
                 if ftype == TType.STRUCT:
-                    self.qe = RequestException()
+                    self.qe = ISRequestException()
                     self.qe.read(iprot)
                 else:
                     iprot.skip(ftype)
@@ -249,8 +249,8 @@ class doSearch_result(object):
         return not (self == other)
 all_structs.append(doSearch_result)
 doSearch_result.thrift_spec = (
-    (0, TType.STRUCT, 'success', [SearchResult, None], None, ),  # 0
-    (1, TType.STRUCT, 'qe', [RequestException, None], None, ),  # 1
+    (0, TType.STRUCT, 'success', [ISSearchResult, None], None, ),  # 0
+    (1, TType.STRUCT, 'qe', [ISRequestException, None], None, ),  # 1
 )
 fix_spec(all_structs)
 del all_structs

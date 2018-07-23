@@ -20,3 +20,27 @@
 * SP 到 QP 访问
     1. SP 主要功能
     2. QP 主要功能
+
+# 数据
+* 公司名/风格/工艺 都转换成id [每种类型重新编号],
+
+* Image: (图片id int, 样品id int, 图片地址 string, 工艺id int, 风格id int多值字段, create_time datetime, modify_time datetime)
+    1. 每家公司 每种工艺 图片id 可以重新编号
+
+# 外部对SP的接口RPC
+*  接口文件 idl_search_plan.thrift
+    // ========   Request  ==========
+    enum SPRequestType{
+        IMAGE_SEARCH,
+        SEARCH_DEBUG
+    }
+
+    struct SPRequest{
+        1: required SPRequestType type;
+        2: required i32		comp_id;
+        3: required i32		craft_id;
+        4: required set<i32>	styles;
+        5: required list<string> img_urls;
+        6: optional map<string, string> srch_params;
+    }
+    .....

@@ -9,45 +9,46 @@
 namespace py image_searcher
 
 // ========   Request  ==========
-enum RequestType{
+enum ISRequestType{
 	IMAGE_SEARCH,
 	SEARCH_DEBUG
 }
 
-struct Request{
-	1: required RequestType type;
+struct ISRequest{
+	1: required ISRequestType type;
 	2: required i32		comp_id;
 	3: required i32		craft_id;
 	4: required set<i32>	styles;
-	5: required list< list<double> > img_urls;
+	5: required list< list<double> > query_vecs;
 	6: required i32     vec_dim;
 	7: optional map<string, string> srch_params;
 }
 
 // ========    Result  ===========
-enum ReturnStatus{
+enum ISReturnStatus{
 	SEARCH_OK,
-	ERROR_1
+	ERROR_NO_COMP_ID,
+	ERROR_NO_CRAFT_ID
 }
 
-struct ReturnInfo{
+struct ISReturnInfo{
 	1: required i32	       srch_img_cnt;
 	2: required i32	       srch_sample_cnt;
 	3: optional list<string> debug_info;
 }
 
-struct ReturnProduct{
+struct ISReturnProduct{
 	1: required list<i32> list_prods;
 }
 
-struct SearchResult{
-	1: required ReturnStatus  ret_status;
-	2: required ReturnInfo	  ret_info;
-	3: required ReturnProduct ret_prod;
+struct ISSearchResult{
+	1: required ISReturnStatus  ret_status;
+	2: required ISReturnInfo	ret_info;
+	3: required ISReturnProduct ret_prod;
 }
 
 // ======   Exception ==========
-exception RequestException{
+exception ISRequestException{
 	1: required i32 code;
 	2: optional string excp;
 }
@@ -55,5 +56,5 @@ exception RequestException{
 // =======   Service  ===========
 service ImageSearcherService{
 	// service function
-	SearchResult doSearch(1: Request request) throws(1:RequestException qe);
+	ISSearchResult doSearch(1: ISRequest request) throws(1:ISRequestException qe);
 }

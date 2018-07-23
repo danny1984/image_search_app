@@ -8,3 +8,6 @@ services:
   sp:
     ip: localhost
     port: 3207
+  is:
+    ip: localhost
+    port: 5088

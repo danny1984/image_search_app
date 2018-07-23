@@ -16,7 +16,7 @@ from thrift.transport import TTransport
 all_structs = []
 
 
-class RequestType(object):
+class ISRequestType(object):
     IMAGE_SEARCH = 0
     SEARCH_DEBUG = 1
 
@@ -31,40 +31,43 @@ class RequestType(object):
     }
 
 
-class ReturnStatus(object):
+class ISReturnStatus(object):
     SEARCH_OK = 0
-    ERROR_1 = 1
+    ERROR_NO_COMP_ID = 1
+    ERROR_NO_CRAFT_ID = 2
 
     _VALUES_TO_NAMES = {
         0: "SEARCH_OK",
-        1: "ERROR_1",
+        1: "ERROR_NO_COMP_ID",
+        2: "ERROR_NO_CRAFT_ID",
     }
 
     _NAMES_TO_VALUES = {
         "SEARCH_OK": 0,
-        "ERROR_1": 1,
+        "ERROR_NO_COMP_ID": 1,
+        "ERROR_NO_CRAFT_ID": 2,
     }
 
 
-class Request(object):
+class ISRequest(object):
     """
     Attributes:
      - type
      - comp_id
      - craft_id
      - styles
-     - img_urls
+     - query_vecs
      - vec_dim
      - srch_params
     """
 
 
-    def __init__(self, type=None, comp_id=None, craft_id=None, styles=None, img_urls=None, vec_dim=None, srch_params=None,):
+    def __init__(self, type=None, comp_id=None, craft_id=None, styles=None, query_vecs=None, vec_dim=None, srch_params=None,):
         self.type = type
         self.comp_id = comp_id
         self.craft_id = craft_id
         self.styles = styles
-        self.img_urls = img_urls
+        self.query_vecs = query_vecs
         self.vec_dim = vec_dim
         self.srch_params = srch_params
 
@@ -104,7 +107,7 @@ class Request(object):
                     iprot.skip(ftype)
             elif fid == 5:
                 if ftype == TType.LIST:
-                    self.img_urls = []
+                    self.query_vecs = []
                     (_etype9, _size6) = iprot.readListBegin()
                     for _i10 in range(_size6):
                         _elem11 = []
@@ -113,7 +116,7 @@ class Request(object):
                             _elem17 = iprot.readDouble()
                             _elem11.append(_elem17)
                         iprot.readListEnd()
-                        self.img_urls.append(_elem11)
+                        self.query_vecs.append(_elem11)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -142,7 +145,7 @@ class Request(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('Request')
+        oprot.writeStructBegin('ISRequest')
         if self.type is not None:
             oprot.writeFieldBegin('type', TType.I32, 1)
             oprot.writeI32(self.type)
@@ -162,10 +165,10 @@ class Request(object):
                 oprot.writeI32(iter25)
             oprot.writeSetEnd()
             oprot.writeFieldEnd()
-        if self.img_urls is not None:
-            oprot.writeFieldBegin('img_urls', TType.LIST, 5)
-            oprot.writeListBegin(TType.LIST, len(self.img_urls))
-            for iter26 in self.img_urls:
+        if self.query_vecs is not None:
+            oprot.writeFieldBegin('query_vecs', TType.LIST, 5)
+            oprot.writeListBegin(TType.LIST, len(self.query_vecs))
+            for iter26 in self.query_vecs:
                 oprot.writeListBegin(TType.DOUBLE, len(iter26))
                 for iter27 in iter26:
                     oprot.writeDouble(iter27)
@@ -196,8 +199,8 @@ class Request(object):
             raise TProtocolException(message='Required field craft_id is unset!')
         if self.styles is None:
             raise TProtocolException(message='Required field styles is unset!')
-        if self.img_urls is None:
-            raise TProtocolException(message='Required field img_urls is unset!')
+        if self.query_vecs is None:
+            raise TProtocolException(message='Required field query_vecs is unset!')
         if self.vec_dim is None:
             raise TProtocolException(message='Required field vec_dim is unset!')
         return
@@ -214,7 +217,7 @@ class Request(object):
         return not (self == other)
 
 
-class ReturnInfo(object):
+class ISReturnInfo(object):
     """
     Attributes:
      - srch_img_cnt
@@ -266,7 +269,7 @@ class ReturnInfo(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('ReturnInfo')
+        oprot.writeStructBegin('ISReturnInfo')
         if self.srch_img_cnt is not None:
             oprot.writeFieldBegin('srch_img_cnt', TType.I32, 1)
             oprot.writeI32(self.srch_img_cnt)
@@ -304,7 +307,7 @@ class ReturnInfo(object):
         return not (self == other)
 
 
-class ReturnProduct(object):
+class ISReturnProduct(object):
     """
     Attributes:
      - list_prods
@@ -342,7 +345,7 @@ class ReturnProduct(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('ReturnProduct')
+        oprot.writeStructBegin('ISReturnProduct')
         if self.list_prods is not None:
             oprot.writeFieldBegin('list_prods', TType.LIST, 1)
             oprot.writeListBegin(TType.I32, len(self.list_prods))
@@ -370,7 +373,7 @@ class ReturnProduct(object):
         return not (self == other)
 
 
-class SearchResult(object):
+class ISSearchResult(object):
     """
     Attributes:
      - ret_status
@@ -400,13 +403,13 @@ class SearchResult(object):
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.STRUCT:
-                    self.ret_info = ReturnInfo()
+                    self.ret_info = ISReturnInfo()
                     self.ret_info.read(iprot)
                 else:
                     iprot.skip(ftype)
             elif fid == 3:
                 if ftype == TType.STRUCT:
-                    self.ret_prod = ReturnProduct()
+                    self.ret_prod = ISReturnProduct()
                     self.ret_prod.read(iprot)
                 else:
                     iprot.skip(ftype)
@@ -419,7 +422,7 @@ class SearchResult(object):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('SearchResult')
+        oprot.writeStructBegin('ISSearchResult')
         if self.ret_status is not None:
             oprot.writeFieldBegin('ret_status', TType.I32, 1)
             oprot.writeI32(self.ret_status)
@@ -456,7 +459,7 @@ class SearchResult(object):
         return not (self == other)
 
 
-class RequestException(TException):
+class ISRequestException(TException):
     """
     Attributes:
      - code
@@ -496,7 +499,7 @@ class RequestException(TException):
         if oprot._fast_encode is not None and self.thrift_spec is not None:
             oprot.trans.write(oprot._fast_encode(self, [self.__class__, self.thrift_spec]))
             return
-        oprot.writeStructBegin('RequestException')
+        oprot.writeStructBegin('ISRequestException')
         if self.code is not None:
             oprot.writeFieldBegin('code', TType.I32, 1)
             oprot.writeI32(self.code)
@@ -526,38 +529,38 @@ class RequestException(TException):
 
     def __ne__(self, other):
         return not (self == other)
-all_structs.append(Request)
-Request.thrift_spec = (
+all_structs.append(ISRequest)
+ISRequest.thrift_spec = (
     None,  # 0
     (1, TType.I32, 'type', None, None, ),  # 1
     (2, TType.I32, 'comp_id', None, None, ),  # 2
     (3, TType.I32, 'craft_id', None, None, ),  # 3
     (4, TType.SET, 'styles', (TType.I32, None, False), None, ),  # 4
-    (5, TType.LIST, 'img_urls', (TType.LIST, (TType.DOUBLE, None, False), False), None, ),  # 5
+    (5, TType.LIST, 'query_vecs', (TType.LIST, (TType.DOUBLE, None, False), False), None, ),  # 5
     (6, TType.I32, 'vec_dim', None, None, ),  # 6
     (7, TType.MAP, 'srch_params', (TType.STRING, 'UTF8', TType.STRING, 'UTF8', False), None, ),  # 7
 )
-all_structs.append(ReturnInfo)
-ReturnInfo.thrift_spec = (
+all_structs.append(ISReturnInfo)
+ISReturnInfo.thrift_spec = (
     None,  # 0
     (1, TType.I32, 'srch_img_cnt', None, None, ),  # 1
     (2, TType.I32, 'srch_sample_cnt', None, None, ),  # 2
     (3, TType.LIST, 'debug_info', (TType.STRING, 'UTF8', False), None, ),  # 3
 )
-all_structs.append(ReturnProduct)
-ReturnProduct.thrift_spec = (
+all_structs.append(ISReturnProduct)
+ISReturnProduct.thrift_spec = (
     None,  # 0
     (1, TType.LIST, 'list_prods', (TType.I32, None, False), None, ),  # 1
 )
-all_structs.append(SearchResult)
-SearchResult.thrift_spec = (
+all_structs.append(ISSearchResult)
+ISSearchResult.thrift_spec = (
     None,  # 0
     (1, TType.I32, 'ret_status', None, None, ),  # 1
-    (2, TType.STRUCT, 'ret_info', [ReturnInfo, None], None, ),  # 2
-    (3, TType.STRUCT, 'ret_prod', [ReturnProduct, None], None, ),  # 3
+    (2, TType.STRUCT, 'ret_info', [ISReturnInfo, None], None, ),  # 2
+    (3, TType.STRUCT, 'ret_prod', [ISReturnProduct, None], None, ),  # 3
 )
-all_structs.append(RequestException)
-RequestException.thrift_spec = (
+all_structs.append(ISRequestException)
+ISRequestException.thrift_spec = (
     None,  # 0
     (1, TType.I32, 'code', None, None, ),  # 1
     (2, TType.STRING, 'excp', 'UTF8', None, ),  # 2
