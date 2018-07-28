@@ -4,6 +4,7 @@ import sys
 # my custom utility
 from util.util import *
 from qp_helper.qp_helper import *
+from is_helper.is_helper import *
 from idls.sp_idl.search_plan.ttypes import *
 from idls.qp_idl.query_process.ttypes import *
 
@@ -25,18 +26,20 @@ class SearchPlanServiceHandler:
         return ret
 
     def _doImageSearch(self, req):
-        retInfo = SPReturnInfo(0, 0, [])
-        retProd = SPReturnProduct([])
-        srch_rslt = SPSearchResult(0, retInfo, retProd)
 
         # step 1. query_process
+        splogger.debug("==== Step 1. QP Access         ====")
         qp_helper = QPHelper(sp_conf, req, True)
         qpRslt = qp_helper.QP_Access()
-        splogger.debug("==== Step 1. QP Return ====")
         splogger.debug(qpRslt)
-        splogger.debug("===========================")
+        splogger.debug("==== Step 1. QP Access Success ====")
 
         # step 2. vector_search
+        splogger.debug("==== Step 2. IS Return         ====")
+        is_helper = ISHelper(sp_conf, req, qpRslt, True)
+        isRslt = is_helper.IS_Access()
+        splogger.debug(isRslt)
+        splogger.debug("==== Step 2. IS Access Success ====")
 
         # step 3.
 
@@ -62,6 +65,9 @@ class SearchPlanServiceHandler:
             3: required ReturnProduct ret_prod;
         }
         '''
+        retInfo = SPReturnInfo(0, 0, [])
+        retProd = SPReturnProduct([])
+        srch_rslt = SPSearchResult(0, retInfo, retProd)
 
         return srch_rslt
 

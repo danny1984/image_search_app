@@ -5,10 +5,13 @@
 * searcher部分
 * 没有做容错: 例如 判断图片是否可以解析成jpg格式,完整图片; 参数校验等等
 * util工具类需要优化一下: 最好整理出来日志类["access日志" 和 "错误或者Debug信息日志"]和配置类
-* 从样本子图到样品图的合并, 以及排序, 需要正排信息做排序. 但目前在考虑在Searcher做还是SP做排序,
+* 从样本子图到样品图的合并, 以及排序, 需要正排信息做排序. 但目前在考虑在Searcher,
     同时可能需要redis作为正排索引工具
 * 整体代码优化: 例如直接将QP布置为tensorflow serving
 * 离线流程开发
+* 离线需要产生一个向量文件,保存在image_searcher的conf中
+    例如: "1":{"comp_id":"1", "craft_id":"1", "dim":2048, "vector_dir_home": "/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/./vecsearch/imgvec/./output/v3_vec/imagevector/"},
+*
 
 # DONE
 * docker准备

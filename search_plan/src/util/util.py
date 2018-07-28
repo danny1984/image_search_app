@@ -21,7 +21,7 @@ conf_file_path = '../conf/sp.yaml'
 with open(conf_file_path) as sp_conf_file:
     if sp_conf_file:
         sp_conf = yaml.load(sp_conf_file.read())
-        splogger.info("Conf:")
+        #splogger.info("Conf:")
         #splogger.info(sp_conf["services"]["qp"])
     else:
         splogger.fatal("Load conf {} error!".format(conf_file_path))

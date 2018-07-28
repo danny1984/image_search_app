@@ -26,13 +26,13 @@ class QPHelper:
             transport = TSocket.TSocket(self._ip, self._port)
             transport = TTransport.TBufferedTransport(transport)
             protocol = TBinaryProtocol.TBinaryProtocol(transport)
-            qpClient = QueryProcessService.Client(protocol)
+            qpHelper = QueryProcessService.Client(protocol)
             transport.open()
 
             splogger.debug("Sp access qp");
             qpReq = QPRequest(0, self._sp_req.img_urls, self._sp_req.srch_params)
 
-            qpRslt = qpClient.doQueryProcess(qpReq)
+            qpRslt = qpHelper.doQueryProcess(qpReq)
             splogger.debug("qp return")
             splogger.debug(qpRslt)
 
