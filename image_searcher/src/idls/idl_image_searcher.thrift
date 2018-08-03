@@ -23,6 +23,7 @@ struct ISRequest{
 	6: required i32     vec_dim;
 	7: optional map<string, string> srch_params;
 }
+// 注: 一次检索发送多个图片检索
 
 // ========    Result  ===========
 enum ISReturnStatus{
@@ -38,8 +39,9 @@ struct ISReturnInfo{
 }
 
 struct ISReturnProduct{
-	1: required list<i32> list_prods;
+	1: required list< list<i32> > list_prods;
 }
+// 注: 一次查询可能包含多个检索图片
 
 struct ISSearchResult{
 	1: required ISReturnStatus  ret_status;

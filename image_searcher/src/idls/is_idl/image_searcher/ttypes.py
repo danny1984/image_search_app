@@ -331,7 +331,12 @@ class ISReturnProduct(object):
                     self.list_prods = []
                     (_etype40, _size37) = iprot.readListBegin()
                     for _i41 in range(_size37):
-                        _elem42 = iprot.readI32()
+                        _elem42 = []
+                        (_etype46, _size43) = iprot.readListBegin()
+                        for _i47 in range(_size43):
+                            _elem48 = iprot.readI32()
+                            _elem42.append(_elem48)
+                        iprot.readListEnd()
                         self.list_prods.append(_elem42)
                     iprot.readListEnd()
                 else:
@@ -348,9 +353,12 @@ class ISReturnProduct(object):
         oprot.writeStructBegin('ISReturnProduct')
         if self.list_prods is not None:
             oprot.writeFieldBegin('list_prods', TType.LIST, 1)
-            oprot.writeListBegin(TType.I32, len(self.list_prods))
-            for iter43 in self.list_prods:
-                oprot.writeI32(iter43)
+            oprot.writeListBegin(TType.LIST, len(self.list_prods))
+            for iter49 in self.list_prods:
+                oprot.writeListBegin(TType.I32, len(iter49))
+                for iter50 in iter49:
+                    oprot.writeI32(iter50)
+                oprot.writeListEnd()
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -550,7 +558,7 @@ ISReturnInfo.thrift_spec = (
 all_structs.append(ISReturnProduct)
 ISReturnProduct.thrift_spec = (
     None,  # 0
-    (1, TType.LIST, 'list_prods', (TType.I32, None, False), None, ),  # 1
+    (1, TType.LIST, 'list_prods', (TType.LIST, (TType.I32, None, False), False), None, ),  # 1
 )
 all_structs.append(ISSearchResult)
 ISSearchResult.thrift_spec = (

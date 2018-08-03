@@ -4,7 +4,7 @@ project_home_path: '/Users/danny/Documents/devenv/tf_vir/workspace/image_search_
 
 vector_conf_home: './vector_conf.json'
 
-return_top_k: 200
+return_top_k: 2
 
 # service
 services:

@@ -46,7 +46,7 @@ try:
     img_urls.append('/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/data/test_data/IMG_3594.JPG')
     params = {}
     params['debug'] = "1"
-    req = SPRequest(0, 0, 0, styles, img_urls, params)
+    req = SPRequest(0, 1, 1, styles, img_urls, params)
 
     rslt = client.doImageSearch(req)
     splogger.info("Sp return")

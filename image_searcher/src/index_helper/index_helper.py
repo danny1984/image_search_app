@@ -1,4 +1,5 @@
 # coding: utf-8
+# 所有图片索引接口
 import json as js
 from vec_index import *
 
@@ -31,13 +32,13 @@ class IndexHelper:
                                                       comp_id, craft_id, vec_dir_home))
                 tmp_index_info = VectorIndex(index_id, index_info, self._logger)
 
-                if self._index_sum.has_key("comp_id"):
-                    if self._index_sum["comp_id"].has_key("craft_id"):
-                        self._index_sum["comp_id"]["craft_id"] = tmp_index_info
+                if self._index_sum.has_key(comp_id):
+                    if self._index_sum[comp_id].has_key(craft_id):
+                        self._index_sum[comp_id][craft_id] = tmp_index_info
                     else:
-                        self._index_sum["comp_id"]["craft_id"] = tmp_index_info
+                        self._index_sum[comp_id][craft_id] = tmp_index_info
                 else:
-                    self._index_sum["comp_id"] = {}
-                    self._index_sum["comp_id"]["craft_id"] = tmp_index_info
+                    self._index_sum[comp_id] = {}
+                    self._index_sum[comp_id][craft_id] = tmp_index_info
 
         return self._index_sum

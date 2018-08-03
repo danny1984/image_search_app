@@ -31,13 +31,16 @@ class ImageSearcherServiceHandler:
         comp_id = req.comp_id
         craft_id = req.craft_id
         #query_vecs = req.query_vecs
+        self._logger.debug("Query company {} and craft {}".format(comp_id, craft_id))
 
         # step 1: 找到comp和craft的 index_info
         if self._vecIndex.has_key(comp_id) and self._vecIndex[comp_id].has_key(craft_id):
+            self._logger.debug("Index exists ....")
             cur_index_info = self._vecIndex[comp_id][craft_id]
             # step 2: 排序
             return self._search_and_sort(req, cur_index_info)
         else:
+            self._logger.debug("Index not exists ....")
             isRetStatus = ISReturnStatus.SEARCH_OK
             if not self._vecIndex.has_key(comp_id):
                 isRetStatus = ISReturnStatus.ERROR_NO_COMP_ID
