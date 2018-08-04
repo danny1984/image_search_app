@@ -16,7 +16,7 @@ from idls.sp_idl.search_plan.ttypes import *
 
 from thrift.transport import TSocket
 from thrift.transport import TTransport
-from thrift.protocol  import TBinaryProtocol
+from thrift.protocol import TCompactProtocol
 from thrift.server    import TServer
 
 # my custom utility
@@ -29,7 +29,7 @@ sp_ip     = sp_conf["services"]["sp"]["ip"]
 sp_port   = sp_conf["services"]["sp"]["port"]
 transport = TSocket.TServerSocket(sp_ip, sp_port)
 tfactory  = TTransport.TBufferedTransportFactory()
-pfactory  = TBinaryProtocol.TBinaryProtocolFactory()
+pfactory  = TCompactProtocol.TCompactProtocolFactory()
 
 server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)
 

@@ -16,4 +16,4 @@ services:
     port: 3207
   is:
     ip: localhost
-    port: 5088
+    port: 4088

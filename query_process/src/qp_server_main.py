@@ -15,25 +15,25 @@ from idls.qp_idl.query_process.ttypes import *
 
 from thrift.transport import TSocket
 from thrift.transport import TTransport
-from thrift.protocol  import TBinaryProtocol
+from thrift.protocol  import TCompactProtocol
 from thrift.server    import TServer
 
 # my custom utility
 from util.util import *
 from qp_handler import QueryProcessServiceHandler
 
-handler   = QueryProcessServiceHandler(qp_conf, qplogger)
-processor = QueryProcessService.Processor(handler)
+qphandler   = QueryProcessServiceHandler(qp_conf, qplogger)
+qpprocessor = QueryProcessService.Processor(qphandler)
 qp_ip     = qp_conf["services"]["qp"]["ip"]
 qp_port   = qp_conf["services"]["qp"]["port"]
-transport = TSocket.TServerSocket(qp_ip, qp_port)
-tfactory  = TTransport.TBufferedTransportFactory()
-pfactory  = TBinaryProtocol.TBinaryProtocolFactory()
+qptransport = TSocket.TServerSocket(qp_ip, qp_port)
+qptfactory  = TTransport.TBufferedTransportFactory()
+qppfactory  = TCompactProtocol.TCompactProtocolFactory()
 
-server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)
+qp_server = TServer.TSimpleServer(qpprocessor, qptransport, qptfactory, qppfactory)
 
 qplogger.info("Starting Query Process in ip \"{}\" and port {}".format(qp_ip, qp_port))
 
-server.serve()
+qp_server.serve()
 
 qplogger.info("Done")

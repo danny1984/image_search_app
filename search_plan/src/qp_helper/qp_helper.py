@@ -7,7 +7,7 @@ from util.util import *
 from thrift import Thrift
 from thrift.transport import TSocket
 from thrift.transport import TTransport
-from thrift.protocol import TBinaryProtocol
+from thrift.protocol import TCompactProtocol
 
 from idls.qp_idl.query_process import QueryProcessService
 from idls.qp_idl.query_process.ttypes import *
@@ -23,20 +23,20 @@ class QPHelper:
     def QP_Access(self):
         qpRslt = QPSearchResult
         try:
-            transport = TSocket.TSocket(self._ip, self._port)
-            transport = TTransport.TBufferedTransport(transport)
-            protocol = TBinaryProtocol.TBinaryProtocol(transport)
-            qpHelper = QueryProcessService.Client(protocol)
-            transport.open()
+            qptransport = TSocket.TSocket(self._ip, self._port)
+            qptransport = TTransport.TBufferedTransport(qptransport)
+            qpprotocol = TCompactProtocol.TCompactProtocol(qptransport)
+            qpHelper = QueryProcessService.Client(qpprotocol)
+            qptransport.open()
 
             splogger.debug("Sp access qp");
             qpReq = QPRequest(0, self._sp_req.img_urls, self._sp_req.srch_params)
 
             qpRslt = qpHelper.doQueryProcess(qpReq)
             splogger.debug("qp return")
-            splogger.debug(qpRslt)
+            #splogger.debug(qpRslt)
 
-            transport.close()
+            qptransport.close()
 
         except Thrift.TException, ex:
             splogger.info( "{}".format(ex.message))

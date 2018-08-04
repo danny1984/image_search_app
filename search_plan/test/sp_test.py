@@ -14,12 +14,12 @@ from idls.sp_idl.search_plan.ttypes import *
 from thrift import Thrift
 from thrift.transport import TSocket
 from thrift.transport import TTransport
-from thrift.protocol import TBinaryProtocol
+from thrift.protocol import TCompactProtocol
 
 try:
     transport = TSocket.TSocket('localhost', 3207)
     transport = TTransport.TBufferedTransport(transport)
-    protocol = TBinaryProtocol.TBinaryProtocol(transport)
+    protocol = TCompactProtocol.TCompactProtocol(transport)
     client = SearchPlanService.Client(protocol)
     transport.open()
 

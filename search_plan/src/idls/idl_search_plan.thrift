@@ -36,7 +36,7 @@ struct SPReturnInfo{
 }
 
 struct SPReturnProduct{
-	1: required list<i32> list_prods; 
+	1: required list< list<i32> > list_prods;
 }
 
 struct SPSearchResult{

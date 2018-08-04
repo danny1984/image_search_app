@@ -16,27 +16,27 @@ from idls.is_idl.image_searcher.ttypes  import *
 
 from thrift.transport import TSocket
 from thrift.transport import TTransport
-from thrift.protocol  import TBinaryProtocol
+from thrift.protocol  import TCompactProtocol
 from thrift.server    import TServer
 
 # my custom utility
 from util.util import *
 from is_handler import ImageSearcherServiceHandler
 
-handler   = ImageSearcherServiceHandler(is_conf, islogger)
-processor = ImageSearcherService.Processor(handler)
+ishandler   = ImageSearcherServiceHandler(is_conf, islogger)
+isprocessor = ImageSearcherService.Processor(ishandler)
 is_ip     = is_conf["services"]["is"]["ip"]
 is_port   = is_conf["services"]["is"]["port"]
-transport = TSocket.TServerSocket(is_ip, is_port)
-tfactory  = TTransport.TBufferedTransportFactory()
-pfactory  = TBinaryProtocol.TBinaryProtocolFactory()
+istransport = TSocket.TServerSocket(is_ip, is_port)
+istfactory  = TTransport.TBufferedTransportFactory()
+ispfactory  = TCompactProtocol.TCompactProtocolFactory()
 
-server = TServer.TSimpleServer(processor, transport, tfactory, pfactory)
+is_server = TServer.TSimpleServer(isprocessor, istransport, istfactory, ispfactory)
 
 islogger.info("=================================================================")
 islogger.info("Starting Search Plan in ip \"{}\" and port {}".format(is_ip, is_port))
 
-server.serve()
+is_server.serve()
 
 islogger.info("Done")
 
