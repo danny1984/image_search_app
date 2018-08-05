@@ -39,7 +39,7 @@ class SearchPlanServiceHandler:
         splogger.debug("==== Step 2. IS Access         ====")
         is_helper = ISHelper(sp_conf, req, qpRslt, True)
         is_start = datetime.datetime.now()
-         isRslt = is_helper.IS_Access()
+        isRslt = is_helper.IS_Access()
 
         isRetStatus = ISReturnStatus.SEARCH_OK
         isRetInfo = ISReturnInfo(0, 0, [])
