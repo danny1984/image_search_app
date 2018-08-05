@@ -12,6 +12,7 @@
 * 离线需要产生一个向量文件,保存在image_searcher的conf中
     例如: "1":{"comp_id":"1", "craft_id":"1", "dim":2048, "vector_dir_home": "/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/./vecsearch/imgvec/./output/v3_vec/imagevector/"},
 * 抽象 排序中排序和正排过程
+* 统一所有的protocol, 节省时间
 
 # DONE
 * docker准备

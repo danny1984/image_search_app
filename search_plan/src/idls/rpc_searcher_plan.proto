@@ -1,0 +1,52 @@
+// Search_Plan IDL
+// input: company_id, craft, style, image_url
+// output: offer_list
+//
+// dehong.gdh 20180715
+
+syntax = "proto3";
+
+package  search_plan;
+
+// ========   Request  ==========
+message SPRequest{
+    enum SPRequestType{
+        IMAGE_SEARCH = 0;
+        SEARCH_DEBUG = 1;
+    }
+	SPRequestType   type  =   1;
+	int32		    comp_id = 2;
+	int32		    craft_id= 3;
+	repeated int32	styles  = 4;
+	repeated string img_urls= 5;
+	map<string, string> srch_params = 6;
+}
+
+// ========    Result  ===========
+message SPReturnInfo{
+	int32	srch_img_cnt    = 1;
+	int32	srch_sample_cnt = 2;
+	repeated string  debug_info  = 3;
+}
+
+// product list for one query
+message SPProduct {
+    repeated string prod_ids  = 1;
+}
+
+message SPSearchResult{
+    enum SPReturnStatus{
+            SEARCH_OK = 0;
+            ERROR_1   = 1;
+    }
+	SPReturnStatus      ret_status  = 1;
+	SPReturnInfo	    ret_info    = 2;
+	repeated SPProduct  ret_prod    = 3;
+}
+
+// =======   Service  ===========
+service SearchPlanService{
+	// service function
+	rpc doImageSearch(SPRequest) returns (SPSearchResult);
+}
+

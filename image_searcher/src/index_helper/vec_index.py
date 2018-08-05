@@ -22,7 +22,7 @@ class VectorIndex:
         self._logger.info("=== Comp_id {} and craft {} index build successfully".format(self._comp_id, self._craft_id))
 
     def doSearch(self, query_vecs, topk):
-        self._logger.info(query_vecs)
+        self._logger.info(type(query_vecs))
         query_vecs = np.array(query_vecs, dtype=np.float32)
         img_dis, img_idxs = self._index.search(query_vecs, topk)
         # 遍历所有查询

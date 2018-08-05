@@ -1,0 +1,61 @@
+// grpc
+// image searcher IDL
+// input: company_id, craft, style, image_vector
+// output: product_list
+//
+// dehong.gdh 20180805
+
+syntax = "proto3";
+
+package image_searcher;
+
+// ========   Request  ==========
+message ISQueryVector{
+    int32 id   = 1;
+    repeated float embs  = 2;
+}
+
+message ISRequest{
+    enum ISRequestType{
+        IMAGE_SEARCH = 0;
+        SEARCH_DEBUG = 1;
+    }
+	ISRequestType   type        = 1;
+	int32		    comp_id     = 2;
+	int32		    craft_id    = 3;
+	repeated int32	styles      = 4;
+	repeated ISQueryVector  query_vectors = 5;
+	int32          vec_dim     = 6;
+	map<string, string>     srch_params = 7;
+}
+
+// ========    Result  ===========
+
+
+message ISReturnInfo{
+	int32	       srch_img_cnt     = 1;
+	int32	       srch_sample_cnt  = 2;
+	repeated string        debug_info       = 3;
+}
+
+// product list for one query
+message ISProduct {
+    repeated string prod_ids  = 1;
+}
+
+message ISSearchResult{
+    enum ISReturnStatus{
+        SEARCH_OK = 0;
+        ERROR_NO_COMP_ID = 1;
+        ERROR_NO_CRAFT_ID = 2;
+    }
+	ISReturnStatus  ret_status  = 1;
+	ISReturnInfo	ret_info    = 2;
+	repeated ISProduct ret_prod    = 3;
+}
+
+// =======   Service  ===========
+service ImageSearcherService{
+	// service function
+	rpc doSearch(ISRequest) returns(ISSearchResult);
+}
