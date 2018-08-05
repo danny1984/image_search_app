@@ -1,6 +1,6 @@
 is_conf: is_params
 
-project_home_path: '/Users/danny/Documents/devenv/tf_vir/workspace/image_search_app/image_search_app/image_searcher/'
+project_home_path: '/data/projectspace/image_search_app/image_searcher/'
 
 vector_conf_home: './vector_conf.json'
 
