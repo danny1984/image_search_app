@@ -1,6 +1,21 @@
 #image search app
 图像搜索
 
+# 使用
+* SP: docker运行容器(如测试 name & p 参数注意替换)
+   docker run -ti --name tujing_sp -p 3207:3207 -v /home/admin/:/data/ dannygao/tujing:thrift_0.11_docker_20180714  /bin/bash
+* QP: docker运行容器
+    docker run -ti --name tujing_qp -p 2088:2088 -v /home/admin/:/data/ dannygao/tujing:thrift_0.11_docker_20180714  /bin/bash
+* IS: docker 运行容器
+    docker run -ti --name tujing_is -p 4088:4088 -v /home/admin/:/data/ dannygao/tujing:faiss_0.1_cpu_docker_20180715 /bin/bash
+    # 运行grpc服务
+    python is_server_grpc.py 
+    
+注: 
+1. 需要按照yaml: pip install pyyaml
+2. QP 运行需要修改配置文件 inception v3目录
+3. IS 运行需要修改配置文件  
+
 # TODO
 * searcher部分
 * 没有做容错: 例如 判断图片是否可以解析成jpg格式,完整图片; 参数校验等等
