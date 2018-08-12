@@ -3,11 +3,11 @@ sp_conf: sp_params
 # service
 services:
   qp:
-    ip: localhost
+    ip: 'localhost'
     port: 2088
   sp:
-    ip: localhost
+    ip: '172.16.7.221'
     port: 3207
   is:
-    ip: localhost
+    ip: '172.16.7.221'
     port: 4088

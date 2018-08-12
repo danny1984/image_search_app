@@ -33,7 +33,7 @@ class SearchPlanServiceGRPCHandler(rpc_searcher_plan_pb2_grpc.SearchPlanServiceS
         splogger.debug("==== Step 1. QP Access         ====")
         qp_helper = QPHelper(sp_conf, req, True)
         qpRslt = qp_helper.QP_Access()
-        # splogger.debug(qpRslt)
+        #splogger.debug(qpRslt)
         splogger.debug("==== Step 1. QP Access Success ====")
 
         # step 2. vector_search
