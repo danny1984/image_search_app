@@ -3,12 +3,14 @@ import sys, os
 import numpy as np
 import tensorflow as tf
 from tensorflow.python.platform import gfile
+from oss_helper.oss_helper      import *
 
 class VectorGen:
     def __init__(self, conf, logger):
         self._conf   = conf
         self._logger = logger
         self._load_inception_model(conf)
+        self._oss_helper = OSSHelper(conf)
 
     def gen_vector(self, listImage):
         listVectors = []
@@ -17,7 +19,9 @@ class VectorGen:
             init = tf.global_variables_initializer()
             sess.run(init)
 
-            for img_path in listImage:
+            for img_oss_key in listImage:
+                self._logger.debug("To get oss image: {}".format(img_oss_key))
+                img_path = self._oss_helper.getOSSFile(img_oss_key)
                 self._logger.debug("To generate vector for image: {}".format(img_path))
                 image_data = gfile.FastGFile(img_path, 'rb').read()
                 bottleneck_values = self._run_bottleneck_on_image(sess, image_data, self.jpeg_data_tensor, self.bottleneck_tensor)
