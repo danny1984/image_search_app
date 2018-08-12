@@ -1,0 +1,6 @@
+{
+    "index_info":{"comp_cnt":1, "index_cnt":1},
+"1":{"comp_id": 1, "craft_id":1, "dim":2048, "vector_dir_home": "/home/admin/projectspace/offline_image_search/tujing/output/v3_vec/imagevector/"},
+"2":{"comp_id": 1, "craft_id":2, "dim":2048, "vector_dir_home": "/home/admin/projectspace/offline_image_search/tujing/output/v3_vec/imagevector/"},
+"3":{"comp_id": 3, "craft_id":7, "dim":2048, "vector_dir_home": "/home/admin/projectspace/offline_image_search/tujing/output/v3_vec/imagevector/"}
+}

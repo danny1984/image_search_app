@@ -16,7 +16,7 @@ from idls.is_idl_grpc.image_searcher import rpc_image_searcher_pb2_grpc
 from util.util import *
 from is_handler_grpc import ImageSearcherServiceGRPCHandler
 
-_ONE_DAY_IN_SECONDS = 60 * 60 * 24
+_ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365
 
 def serve():
     grpcServer = grpc.server(futures.ThreadPoolExecutor(max_workers=4))
@@ -25,7 +25,7 @@ def serve():
     grpcServer.start()
     try:
         while True:
-            time.sleep(_ONE_DAY_IN_SECONDS)
+            time.sleep(_ONE_YEAR_IN_SECONDS)
     except KeyboardInterrupt:
         grpcServer.stop(0)
 

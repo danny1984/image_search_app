@@ -16,7 +16,7 @@ from idls.sp_idl_grpc.search_plan import rpc_searcher_plan_pb2_grpc
 from util.util import *
 from sp_handler_grpc import SearchPlanServiceGRPCHandler
 
-_ONE_DAY_IN_SECONDS = 60 * 60 * 24
+_ONE_YEAR_IN_SECONDS = 60 * 60 * 24 * 365
 
 def serve():
     grpcServer = grpc.server(futures.ThreadPoolExecutor(max_workers=4))
@@ -26,7 +26,7 @@ def serve():
     splogger.info("SP start at {} and port {}".format(sp_conf["services"]["sp"]["ip"], sp_conf["services"]["sp"]["port"]))
     try:
         while True:
-            time.sleep(_ONE_DAY_IN_SECONDS)
+            time.sleep(_ONE_YEAR_IN_SECONDS)
     except KeyboardInterrupt:
         grpcServer.stop(0)
 

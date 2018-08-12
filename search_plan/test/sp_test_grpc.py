@@ -28,8 +28,11 @@ def Test_SP():
     img_urls = []
     #img_urls.append('/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/data/test_data/IMG_3592.JPG')
     #img_urls.append('/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/data/test_data/IMG_3594.JPG')
-    img_urls.append('/home/admin/projectspace/test/search_test/test_images/IMG_3592.JPG')
-    img_urls.append('/home/admin/projectspace/test/search_test/test_images/IMG_3594.JPG')
+    #img_urls.append('/home/admin/projectspace/test/search_test/test_images/IMG_3592.JPG')
+    #img_urls.append('/home/admin/projectspace/test/search_test/test_images/IMG_3594.JPG')
+    #img_urls.append('1_78b27f8e8ac648a68a9a84fb7f800561.JPG')
+    img_urls.append('1_9123cf19e13847b7b17ff87941b44464.JPG')
+    img_urls.append('1_0e1f2eb650b24064b13131266c9fb17b.JPG')
     params = {}
     params['debug'] = "1"
     spReq = rpc_searcher_plan_pb2.SPRequest(type=0, comp_id=1, craft_id=1,
