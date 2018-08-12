@@ -1,18 +1,18 @@
 is_conf: is_params
 
-project_home_path: '/Users/danny/Documents/devenv/tf_vir/workspace/image_search_app/image_search_app/image_searcher/'
+project_home_path: '/home/admin/projectspace/image_search_app/image_searcher/'
 
 vector_conf_home: './vector_conf.json'
 
-return_top_k: 2
+return_top_k: 10
 
 # service
 services:
   qp:
-    ip: localhost
+    ip: '47.99.45.134'
     port: 2088
   sp:
-    ip: localhost
+    ip: '47.99.45.134'
     port: 3207
   is:
     ip: localhost

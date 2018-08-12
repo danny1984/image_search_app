@@ -1,5 +1,5 @@
 {
     "index_info":{"comp_cnt":1, "index_cnt":1},
-    "1":{"comp_id":1, "craft_id":1, "dim":2048, "isUpdate":1, "vector_dir_home": "/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/./vecsearch/imgvec/./output/v3_vec/imagevector/"},
-    "2":{"comp_id":1, "craft_id":2, "dim":2048, "isUpdate":1, "vector_dir_home": "/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/./vecsearch/imgvec/./output/v3_vec/imagevector/"}
+    "1":{"comp_id":1, "craft_id":1, "dim":2048, "isUpdate":1, "vector_dir_home": "/home/admin/projectspace/image_search_app/image_searcher/resources/imagevector/"},
+    "2":{"comp_id":1, "craft_id":2, "dim":2048, "isUpdate":1, "vector_dir_home": "/home/admin/projectspace/image_search_app/image_searcher/resources/imagevector/"}
 }

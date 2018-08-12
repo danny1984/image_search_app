@@ -4,7 +4,7 @@ project_home_path: ./
 
 #inception v3
 inception_v3:
-  model_dir: '/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/./vecsearch/imgvec/resources/inception_v3/'
+  model_dir: '/home/admin/projectspace/image_search_app/query_process/resources/inception_v3/'
   model_file: 'tensorflow_inception_graph.pb'
   image_data_name: 'DecodeJpeg/contents:0'
   bottleneck_data_name: 'pool_3/_reshape:0'
@@ -15,8 +15,8 @@ services:
     ip: localhost
     port: 2088
   sp:
-    ip: localhost
+    ip: '47.99.45.134'
     port: 3207
   is:
-    ip: localhost
+    ip: '47.99.45.134'
     port: 4088
