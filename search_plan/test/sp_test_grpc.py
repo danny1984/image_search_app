@@ -37,7 +37,7 @@ def Test_SP():
                                             srch_params=params)
     splogger.debug(spReq)
 
-    conn = grpc.insecure_channel("localhost" + ':' + str(3207))
+    conn = grpc.insecure_channel("172.16.7.221" + ':' + str(3207))
     sp_client = rpc_searcher_plan_pb2_grpc.SearchPlanServiceStub(channel=conn)
     spRslt = sp_client.doImageSearch(spReq)
     splogger.info("Sp return")

@@ -9,11 +9,11 @@ return_top_k: 10
 # service
 services:
   qp:
-    ip: '47.99.45.134'
+    ip: '172.16.7.221'
     port: 2088
   sp:
-    ip: '47.99.45.134'
+    ip: '172.16.7.221'
     port: 3207
   is:
-    ip: localhost
+    ip: '172.16.7.221'
     port: 4088

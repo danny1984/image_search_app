@@ -12,11 +12,11 @@ inception_v3:
 # service
 services:
   qp:
-    ip: localhost
+    ip: 'localhost'
     port: 2088
   sp:
-    ip: '47.99.45.134'
+    ip: '172.16.7.221'
     port: 3207
   is:
-    ip: '47.99.45.134'
+    ip: '172.16.7.221'
     port: 4088
