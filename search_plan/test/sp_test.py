@@ -42,8 +42,10 @@ try:
     '''
     styles   = set([1,2])
     img_urls = []
-    img_urls.append('/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/data/test_data/IMG_3592.JPG')
-    img_urls.append('/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/data/test_data/IMG_3594.JPG')
+    #img_urls.append('/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/data/test_data/IMG_3592.JPG')
+    #img_urls.append('/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/data/test_data/IMG_3594.JPG')
+    img_urls.append('/data/projectspace/test/search_test/test_images/IMG_3592.JPG')
+    img_urls.append('/data/projectspace/test/search_test/test_images/IMG_3594.JPG')
     params = {}
     params['debug'] = "1"
     req = SPRequest(0, 1, 1, styles, img_urls, params)

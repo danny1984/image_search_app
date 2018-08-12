@@ -26,8 +26,10 @@ def Test_SP():
     }
     '''
     img_urls = []
-    img_urls.append('/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/data/test_data/IMG_3592.JPG')
-    img_urls.append('/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/data/test_data/IMG_3594.JPG')
+    #img_urls.append('/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/data/test_data/IMG_3592.JPG')
+    #img_urls.append('/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/data/test_data/IMG_3594.JPG')
+    img_urls.append('/home/admin/projectspace/test/search_test/test_images/IMG_3592.JPG')
+    img_urls.append('/home/admin/projectspace/test/search_test/test_images/IMG_3594.JPG')
     params = {}
     params['debug'] = "1"
     spReq = rpc_searcher_plan_pb2.SPRequest(type=0, comp_id=1, craft_id=1,
@@ -35,7 +37,8 @@ def Test_SP():
                                             srch_params=params)
     splogger.debug(spReq)
 
-    conn = grpc.insecure_channel("localhost" + ':' + str(3207))
+    conn = grpc.insecure_channel("47.99.45.134" + ':' + str(3207))
+    #conn = grpc.insecure_channel("localhost" + ':' + str(3207))
     sp_client = rpc_searcher_plan_pb2_grpc.SearchPlanServiceStub(channel=conn)
     spRslt = sp_client.doImageSearch(spReq)
     splogger.info("Sp return")

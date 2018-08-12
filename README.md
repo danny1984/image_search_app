@@ -13,6 +13,7 @@
     例如: "1":{"comp_id":"1", "craft_id":"1", "dim":2048, "vector_dir_home": "/Users/danny/Documents/devenv/tf_vir/workspace/imagesearch/./vecsearch/imgvec/./output/v3_vec/imagevector/"},
 * 抽象 排序中排序和正排过程
 * 统一所有的protocol, 节省时间
+* 图片读取改成oss方式, 或者本地读取
 
 # DONE
 * docker准备
