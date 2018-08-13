@@ -11,11 +11,11 @@ inception_v3:
 
 # oss 配置
 oss_conf:
-  id: 'LTAIOhsKagLIaskD'
-  secret: 'b507nOLWAwwfwIB4l2cEAcZCyJ3Q5h'
-  end_name: 'oss-cn-hangzhou.aliyuncs.com'
-  #bucket_name: 'tujing-clothimage-search'
-  bucket_name: 'tujing-clothimage'
+  id: ''
+  secret: ''
+  end_name: ''
+  #bucket_name: ''
+  bucket_name: ''
   local_file_dir: '/home/admin/projectspace/image_search_app/data/oss_query_file/'
 
 
