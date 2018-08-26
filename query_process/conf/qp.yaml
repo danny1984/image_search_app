@@ -14,8 +14,8 @@ oss_conf:
   id: 'LTAIOhsKagLIaskD'
   secret: 'b507nOLWAwwfwIB4l2cEAcZCyJ3Q5h'
   end_name: 'oss-cn-hangzhou.aliyuncs.com'
-  #bucket_name: 'tujing-clothimage-search'
-  bucket_name: 'tujing-clothimage'
+  bucket_name: 'tujing-clothimage-search'
+  #bucket_name: 'tujing-clothimage'
   local_file_dir: '/home/admin/projectspace/image_search_app/data/oss_query_file/'
 
 

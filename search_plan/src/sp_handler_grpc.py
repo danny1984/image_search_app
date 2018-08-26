@@ -105,7 +105,7 @@ class SearchPlanServiceGRPCHandler(rpc_searcher_plan_pb2_grpc.SearchPlanServiceS
         if isRslt.ret_status == 0:
             sp_status = 0
         else:
-            sp_status = 1
+            sp_status = isRslt.ret_status
         srch_rslt = rpc_searcher_plan_pb2.SPSearchResult(ret_status=sp_status,
                                                          ret_info=spRetInfo,
                                                          ret_prod=spRetProd)

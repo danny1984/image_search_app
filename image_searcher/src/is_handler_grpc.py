@@ -40,7 +40,12 @@ class ImageSearcherServiceGRPCHandler(rpc_image_searcher_pb2_grpc.ImageSearcherS
             return self._search_and_sort(req, cur_index_info)
         else:
             self._logger.debug("Index not exists ....")
-            return rpc_image_searcher_pb2.ISSearchResult(ret_status=1,
+            ret_st = 1
+            if not self._vecIndex.has_key(comp_id):
+                ret_st = 1
+            elif not self._vecIndex[comp_id].has_key(craft_id):
+                ret_st = 2
+            return rpc_image_searcher_pb2.ISSearchResult(ret_status=ret_st,
                                 ret_info=rpc_image_searcher_pb2.ISReturnInfo(srch_img_cnt=0, srch_sample_cnt=0, debug_info=""),
                                 ret_prod=[])
 

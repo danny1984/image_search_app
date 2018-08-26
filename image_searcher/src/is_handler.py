@@ -58,7 +58,7 @@ class ImageSearcherServiceHandler:
         query_vecs = req.query_vecs
         img_dis, img_name = index_info.doSearch(query_vecs, top_k)
         # TODO: 排序
-        # prod_id = RankerBaseline(img_dis, img_name)
+        # prod_name, prod_dis = RankerBaseline(img_dis, img_name, req)
         isRetStatus = ISReturnStatus.SEARCH_OK
         isRetInfo = ISReturnInfo(len(img_name), len(img_name), [])
         isRetProd = ISReturnProduct(img_name)
