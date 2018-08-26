@@ -11,8 +11,8 @@ inception_v3:
 
 # oss 配置
 oss_conf:
-  id: 'LTAIOhsKagLIaskD'
-  secret: 'b507nOLWAwwfwIB4l2cEAcZCyJ3Q5h'
+  id: ''
+  secret: ''
   end_name: 'oss-cn-hangzhou.aliyuncs.com'
   bucket_name: 'tujing-clothimage-search'
   #bucket_name: 'tujing-clothimage'
