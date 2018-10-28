@@ -1,9 +1,11 @@
 #!/bin/bash
-dt=`date "+%Y%m%d" -d last-day`
+#dt=`date "+%Y%m%d"`
+dt=`date "+%Y%m%d" -d yesterday`
 echo $dt " begin to update the index"
 HOME_OFFLINE=/home/admin/projectspace/offline_image_search/tujing/
 HOME_IS_ONLINE=/home/admin/projectspace/image_search_app/image_searcher/
 
+cd $HOME_IS_ONLINE
 # step 1. check done
 checkdone_file=$HOME_OFFLINE/output/$dt.done
 echo $dt " to check configfile " $checkdone_file
@@ -15,14 +17,16 @@ echo $dt $checkdone_file " ready and to update"
 
 # step 2. copy the config file
 # step 2.1 backup the old config in case that the new config is not workable
-cp $HOME_IS_ONLINE/conf/offline_config.json $HOME_IS_ONLINE/conf/offline_config.json.$dt
+cp $HOME_IS_ONLINE/conf/offline_config.json $HOME_IS_ONLINE/conf/conf_bak/offline_config.json.$dt
 mv $HOME_IS_ONLINE/conf/offline_config.json $HOME_IS_ONLINE/conf/offline_config.json.bak
 cp $HOME_OFFLINE/output/offline_config.json $HOME_IS_ONLINE/conf/offline_config.json
 
 # step 3. restart the is process
 cd $HOME_IS_ONLINE/src
-source /home/admin/.bash_local
-pyenv_is_enable
+source /home/admin/.bash_profile
+source activate is_vir
+# the command below is not workable. why?
+#pyenv_is_enable
 # step 3.1 test the config
 python is_server_test_config.py
 if [ $? -eq 0 ]; then

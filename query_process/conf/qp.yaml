@@ -16,7 +16,7 @@ oss_conf:
   end_name: 'oss-cn-hangzhou.aliyuncs.com'
   bucket_name: 'tujing-clothimage-search'
   #bucket_name: 'tujing-clothimage'
-  local_file_dir: '/home/admin/projectspace/image_search_app/data/oss_query_file/'
+  local_file_dir: '/mnt/projectdata/image_search_app/data/oss_query_file/'
 
 
 # service

@@ -5,6 +5,8 @@ import sys, datetime
 from idls.is_idl.image_searcher.ttypes import *
 from index_helper.index_helper import *
 
+from ranker_baseline import *  ##dong.liang
+
 class ImageSearcherServiceHandler:
 
     def __init__(self, conf, logger):
@@ -58,10 +60,12 @@ class ImageSearcherServiceHandler:
         query_vecs = req.query_vecs
         img_dis, img_name = index_info.doSearch(query_vecs, top_k)
         # TODO: 排序
-        # prod_name, prod_dis = RankerBaseline(img_dis, img_name, req)
+        prod_name, prod_dis = RankerBaseline(img_dis, img_name, req) #dong.liang
         isRetStatus = ISReturnStatus.SEARCH_OK
-        isRetInfo = ISReturnInfo(len(img_name), len(img_name), [])
-        isRetProd = ISReturnProduct(img_name)
+        # isRetInfo = ISReturnInfo(len(img_name), len(img_name), [])
+        # isRetProd = ISReturnProduct(img_name)
+        isRetInfo = ISReturnInfo(len(prod_name), len(prod_name), [])#dong.liang
+        isRetProd = ISReturnProduct(prod_name)#dong.liang
         isRet = ISSearchResult(isRetStatus, isRetInfo, isRetProd);
         return isRet
 

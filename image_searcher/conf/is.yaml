@@ -5,7 +5,7 @@ project_home_path: '/home/admin/projectspace/image_search_app/image_searcher/'
 #vector_conf_home: './vector_conf.json'
 vector_conf_home: './offline_config.json'
 
-return_top_k: 10
+return_top_k: 30
 
 # service
 services:

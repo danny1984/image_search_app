@@ -6,6 +6,8 @@ from idls.is_idl_grpc.image_searcher import rpc_image_searcher_pb2_grpc
 from util.util import *
 from index_helper.index_helper import *
 
+from img_rank.ranker_baseline import *
+
 class ImageSearcherServiceGRPCHandler(rpc_image_searcher_pb2_grpc.ImageSearcherServiceServicer):
     def __init__(self, conf, logger):
         self._conf      = conf
@@ -76,19 +78,19 @@ class ImageSearcherServiceGRPCHandler(rpc_image_searcher_pb2_grpc.ImageSearcherS
             query_vecs.append(isQV.embs)
         img_dises, img_names = index_info.doSearch(query_vecs, top_k)
         # TODO: 排序
-        # prod_id = RankerBaseline(img_dises, img_names)
+        prod_names, prod_dises = RankerBaseline(img_dises, img_names,req) #dong.liang
         '''
         message ISReturnInfo{
             int32	       srch_img_cnt     = 1;
             int32	       srch_sample_cnt  = 2;
             repeated string        debug_info       = 3;
         }
-        
+
         // product list for one query
         message ISProduct {
             repeated string prod_ids  = 1;
         }
-        
+
         message ISSearchResult{
             enum ISReturnStatus{
                 SEARCH_OK = 0;
@@ -100,13 +102,24 @@ class ImageSearcherServiceGRPCHandler(rpc_image_searcher_pb2_grpc.ImageSearcherS
             repeated ISProduct ret_prod    = 3;
         }
         '''
-        img_cnt = 0
-        ret_prods = []
-        for img_name in img_names:
-            isProds = rpc_image_searcher_pb2.ISProduct(prod_ids=img_name)
-            ret_prods.append(isProds)
-            img_cnt += len(img_name)
-        retInfo = rpc_image_searcher_pb2.ISReturnInfo(srch_img_cnt=img_cnt, srch_sample_cnt=img_cnt, debug_info=[])
+        # img_cnt = 0
+        # ret_prods = []
+        # for img_name in img_names:
+        #     isProds = rpc_image_searcher_pb2.ISProduct(prod_ids=img_name)
+        #     ret_prods.append(isProds)
+        #     img_cnt += len(img_name)
+        # retInfo = rpc_image_searcher_pb2.ISReturnInfo(srch_img_cnt=img_cnt, srch_sample_cnt=img_cnt, debug_info=[])
+
+        img_cnt = 0  #dong.liang
+        ret_prods = [] #dong.liang
+        for img_name in prod_names: #dong.liang
+            # TODO: 感觉代码中将字符串变成了数字 这里必须是字符串,因为pb的定义是string,必须遵守
+            str_img_name = [str(x) for x in img_name]
+            isProds = rpc_image_searcher_pb2.ISProduct(prod_ids=str_img_name) #dong.liang
+            ret_prods.append(isProds) #dong.liang
+            img_cnt += len(img_name) #dong.liang
+        retInfo = rpc_image_searcher_pb2.ISReturnInfo(srch_img_cnt=img_cnt, srch_sample_cnt=img_cnt, debug_info=[]) #dong.liang
+        self._logger.debug("Done in image_search")
 
         return rpc_image_searcher_pb2.ISSearchResult(ret_status=0,ret_info=retInfo, ret_prod=ret_prods)
 
