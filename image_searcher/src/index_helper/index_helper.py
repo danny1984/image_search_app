@@ -9,10 +9,10 @@ class IndexHelper:
         self._logger    = logger
         self._index_sum = {}
 
-    def IndexHelper(self):
-        return self._IndexHelper()
+    def IndexHelper(self, isCheck=False):
+        return self._IndexHelper(isCheck)
 
-    def _IndexHelper(self):
+    def _IndexHelper(self, isCheck):
         vector_conf_path = self._conf["project_home_path"] + "./conf/" + self._conf["vector_conf_home"]
         self._logger.info("Load vector conf {}".format(vector_conf_path))
 
@@ -30,7 +30,9 @@ class IndexHelper:
                 vec_dir_home = index_info["vector_dir_home"]
                 self._logger.info("Load Index {} for company {}, craft {}, and dir {}".format(index_id,
                                                       comp_id, craft_id, vec_dir_home))
-                tmp_index_info = VectorIndex(index_id, index_info, self._logger)
+                tmp_index_info = VectorIndex(index_id, index_info, self._logger, isCheck)
+                if isCheck:
+                    continue
 
                 if self._index_sum.has_key(comp_id):
                     if self._index_sum[comp_id].has_key(craft_id):

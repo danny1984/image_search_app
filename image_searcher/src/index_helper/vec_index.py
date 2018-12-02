@@ -2,12 +2,13 @@
 
 # 图片索引详情类
 
+import sys
 import os, glob
 import numpy as np
 import faiss
 
 class VectorIndex:
-    def __init__(self, index_id, index_conf, logger):
+    def __init__(self, index_id, index_conf, logger, isCheck=False):
         self._index_id      = index_id
         self._index_conf    = index_conf
         self._comp_id       = index_conf["comp_id"]
@@ -18,7 +19,7 @@ class VectorIndex:
         self._id_to_imgname = [] # np.array
         self._imgvecs       = []
         self._logger        = logger
-        self._index         = self._vector_2_index()
+        self._index         = self._vector_2_index(isCheck)
         self._logger.info("=== Comp_id {} and craft {} index build successfully".format(self._comp_id, self._craft_id))
 
     def doSearch(self, query_vecs, topk):
@@ -43,9 +44,13 @@ class VectorIndex:
         #         img_dis.remove(return_idx)
         return img_distances, img_names
 
-    def _vector_2_index(self):
+    def _vector_2_index(self, isCheck):
         # step 1: 产生 _imgvecs, _id_to_imgname, _imgname_to_id
-        imgvecs = self._load_image_vector()
+        imgvecs = self._load_image_vector(isCheck)
+        # step 1: 如果是check 则不build索引 直接返回了
+        if isCheck and len(imgvecs) == 0:
+            index = faiss.IndexFlatL2(self._VECTOR_DIM)
+            return index
         # step 2: 创建索引
         return self._build_image_index(imgvecs)
 
@@ -60,7 +65,7 @@ class VectorIndex:
 
         return index
 
-    def _load_image_vector(self):
+    def _load_image_vector(self, isCheck):
         self._logger.info("Load vector from {}".format(self._vec_dir_home))
         vecfile_glob = os.path.join(self._vec_dir_home, '*.txt')
         imgvec_files = glob.glob(vecfile_glob)
@@ -75,8 +80,18 @@ class VectorIndex:
                 vec_str = fin.readline()
                 imgvec = [float(x) for x in vec_str.split(",")]
 
+                if isCheck:
+                    if self._VECTOR_DIM != len(imgvec):
+                        self._logger.info("ImgEmbedding size error!")
+                        self._imgvec=[]
+                        return self._imgvec
+                    else:
+                        continue
+
                 self._imgvecs.append(imgvec)
                 #self._logger.info( str(idx) + " : " + imgname + " : " + ",".join([str(x) for x in imgvec[:5]]) )
+        if isCheck:
+            return self._imgvecs
         # TODO: 改成 numy 数组直接索引
         self._id_to_imgname = np.array(image_index_name)
 

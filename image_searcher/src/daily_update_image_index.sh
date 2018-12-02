@@ -2,7 +2,7 @@
 #dt=`date "+%Y%m%d"`
 dt=`date "+%Y%m%d" -d yesterday`
 echo $dt " begin to update the index"
-HOME_OFFLINE=/home/admin/projectspace/offline_image_search/tujing/
+HOME_OFFLINE=/mnt/projectdata/offline_image_search/
 HOME_IS_ONLINE=/home/admin/projectspace/image_search_app/image_searcher/
 
 cd $HOME_IS_ONLINE
@@ -30,8 +30,12 @@ source activate is_vir
 # step 3.1 test the config
 python is_server_test_config.py
 if [ $? -eq 0 ]; then
+    echo "*******************************************************"
+    echo $dt " Index check sucessfully!!"
+    echo "*******************************************************"
     # kill current is process
     ps xuf | grep is_server_grpc | awk -F " " '{print $2}' | xargs kill -9
+    sleep 30
     # restart the is process
     echo "nohup python is_server_grpc.py > $HOME_IS_ONLINE/src/nohup_is.out 2>&1&"
     nohup python is_server_grpc.py > $HOME_IS_ONLINE/src/nohup_is.out 2>&1&

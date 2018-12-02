@@ -13,7 +13,7 @@ from util.util import *
 
 def check_config():
    ih = IndexHelper(is_conf, islogger)
-   return ih.IndexHelper()
+   return ih.IndexHelper(True)
 
 
 if __name__ == '__main__':
